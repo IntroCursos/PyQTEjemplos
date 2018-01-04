@@ -12,42 +12,17 @@ class Ui_MainWindow(object):
         self.gridLayout.setContentsMargins(11, 11, 11, 11)
         self.gridLayout.setSpacing(6)
         self.gridLayout.setObjectName("gridLayout")
-        self.label = QtWidgets.QLabel(self.centralWidget)
-        self.label.setObjectName("label")
-        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
 
-        #Toolbar
-
-
-
-        #self.toolBar = MainWindow.addToolBar("Extraction")
-        #self.toolBar.addAction(self.extractAction)
-        #self.barra = QtWidgets.QToolBar("Extraction")
-        #self.gridLayout.addWidget(self.barra, 1, 0, 1, 1)
-
-
-        self.openTable = QtWidgets.QPushButton(self.centralWidget)
-        self.openTable.setObjectName("openTable")
-        self.gridLayout.addWidget(self.openTable, 1, 0, 1, 1)
-        self.openTable.clicked.connect(self.CargaTabla)
 
         self.tableView = QtWidgets.QTableView(self.centralWidget)
         self.tableView.setObjectName("tableView")
         self.gridLayout.addWidget(self.tableView, 2, 0, 1, 3)
 
-        self.clearTable = QtWidgets.QPushButton(self.centralWidget)
-        self.clearTable.setObjectName("clearTable")
-        self.gridLayout.addWidget(self.clearTable, 1, 1, 1, 1)
-        self.clearTable.clicked.connect(self.LimpiarTabla)
 
-        self.lineEdit = QtWidgets.QLineEdit(self.centralWidget)
-        self.lineEdit.setObjectName("lineEdit")
-        self.gridLayout.addWidget(self.lineEdit, 0, 1, 1, 2)
 
-        self.saveTable = QtWidgets.QPushButton(self.centralWidget)
-        self.saveTable.setObjectName("saveTable")
-        self.gridLayout.addWidget(self.saveTable, 1, 2, 1, 1)
-        self.saveTable.clicked.connect(self.GuardarTabla)
+        
+
+
 
         MainWindow.setCentralWidget(self.centralWidget)
         self.menuBar = QtWidgets.QMenuBar(MainWindow)
@@ -58,11 +33,30 @@ class Ui_MainWindow(object):
         MainWindow.setMenuBar(self.menuBar)
 
         self.extractAction = QtWidgets.QAction(QtGui.QIcon("./Iconos/open.png"),'Open file',MainWindow)
+        self.extractAction.setShortcut("Ctrl+o")
         self.extractAction.triggered.connect(self.CargaTabla)
+
+        self.extractAction2 = QtWidgets.QAction(QtGui.QIcon("./Iconos/save.png"),'Save file',MainWindow)
+        self.extractAction2.setShortcut("Ctrl+s")
+        self.extractAction2.triggered.connect(self.GuardarTabla)
+
+        self.extractAction3 = QtWidgets.QAction(QtGui.QIcon("./Iconos/work.png"),'Optimization',MainWindow)
+        self.extractAction3.setShortcut("Ctrl+w")
+        self.extractAction3.triggered.connect(self.OptimizarTabla)
+
+        self.extractAction4 = QtWidgets.QAction(QtGui.QIcon("./Iconos/clean.png"),'Clean all',MainWindow)
+        self.extractAction4.setShortcut("Ctrl+c")
+        self.extractAction4.triggered.connect(self.LimpiarTabla)
+
+
 
         self.mainToolBar = QtWidgets.QToolBar(MainWindow)
         self.mainToolBar.setObjectName("mainToolBar")
         self.mainToolBar.addAction(self.extractAction)
+        self.mainToolBar.addAction(self.extractAction2)
+        self.mainToolBar.addAction(self.extractAction3)
+        self.mainToolBar.addAction(self.extractAction4)
+
         MainWindow.addToolBar(QtCore.Qt.TopToolBarArea, self.mainToolBar)
 
 
@@ -86,14 +80,13 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label.setText(_translate("MainWindow", "TextLabel"))
-        self.openTable.setText(_translate("MainWindow", "OpenTable"))
-        self.clearTable.setText(_translate("MainWindow", "Clear Table"))
-        self.saveTable.setText(_translate("MainWindow", "Save Table"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.actionOpen.setText(_translate("MainWindow", "Open"))
         self.actionSave.setText(_translate("MainWindow", "Save"))
         self.actionClear.setText(_translate("MainWindow", "Clear"))
+
+    def OptimizarTabla(self):
+        print("La tabla se optimiza")
 
     def CargaTabla(self):
         #table = QtWidgets.QTableView()

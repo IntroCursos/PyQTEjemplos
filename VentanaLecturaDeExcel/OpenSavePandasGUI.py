@@ -5,7 +5,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: Michel Emanuel Lopez Franco
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -26,18 +26,6 @@ class Ui_MainWindow(object):
         self.label = QtWidgets.QLabel(self.centralWidget)
         self.label.setObjectName("label")
         self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
-
-        #Toolbar
-        self.extractAction = QtWidgets.QAction(
-            QtGui.QIcon("open.png"),'Open file',self)
-        self.extractAction.triggered.connect(self.CargaTabla)
-        
-
-        #self.toolBar = MainWindow.addToolBar("Extraction")
-        #self.toolBar.addAction(self.extractAction)
-        #self.barra = QtWidgets.QToolBar("Extraction")
-        #self.gridLayout.addWidget(self.barra, 1, 0, 1, 1)
-
 
         self.openTable = QtWidgets.QPushButton(self.centralWidget)
         self.openTable.setObjectName("openTable")
@@ -69,9 +57,35 @@ class Ui_MainWindow(object):
         self.menuFile = QtWidgets.QMenu(self.menuBar)
         self.menuFile.setObjectName("menuFile")
         MainWindow.setMenuBar(self.menuBar)
+
+        self.extractAction = QtWidgets.QAction(QtGui.QIcon("./Iconos/open.png"),'Open file',MainWindow)
+        self.extractAction.setShortcut("Ctrl+o")
+        self.extractAction.triggered.connect(self.CargaTabla)
+
+        self.extractAction2 = QtWidgets.QAction(QtGui.QIcon("./Iconos/save.png"),'Save file',MainWindow)
+        self.extractAction2.setShortcut("Ctrl+s")
+        self.extractAction2.triggered.connect(self.GuardarTabla)
+
+        self.extractAction3 = QtWidgets.QAction(QtGui.QIcon("./Iconos/work.png"),'Optimization',MainWindow)
+        self.extractAction3.setShortcut("Ctrl+w")
+        self.extractAction3.triggered.connect(self.OptimizarTabla)
+
+        self.extractAction4 = QtWidgets.QAction(QtGui.QIcon("./Iconos/clean.png"),'Clean all',MainWindow)
+        self.extractAction4.setShortcut("Ctrl+c")
+        self.extractAction4.triggered.connect(self.LimpiarTabla)
+
+
+
         self.mainToolBar = QtWidgets.QToolBar(MainWindow)
         self.mainToolBar.setObjectName("mainToolBar")
+        self.mainToolBar.addAction(self.extractAction)
+        self.mainToolBar.addAction(self.extractAction2)
+        self.mainToolBar.addAction(self.extractAction3)
+        self.mainToolBar.addAction(self.extractAction4)
+
         MainWindow.addToolBar(QtCore.Qt.TopToolBarArea, self.mainToolBar)
+
+
         self.statusBar = QtWidgets.QStatusBar(MainWindow)
         self.statusBar.setObjectName("statusBar")
         MainWindow.setStatusBar(self.statusBar)
@@ -100,6 +114,9 @@ class Ui_MainWindow(object):
         self.actionOpen.setText(_translate("MainWindow", "Open"))
         self.actionSave.setText(_translate("MainWindow", "Save"))
         self.actionClear.setText(_translate("MainWindow", "Clear"))
+
+    def OptimizarTabla(self):
+        print("La tabla se optimiza")
 
     def CargaTabla(self):
         #table = QtWidgets.QTableView()
