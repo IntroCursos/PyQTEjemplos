@@ -1,6 +1,4 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-
-
 from PandasData import Mi_tabla
 import pandas as pd
 
@@ -16,23 +14,26 @@ class Ui_MainWindow(object):
         self.gridLayout.setObjectName("gridLayout")
 
 
-        self.tableView = QtWidgets.QTableView(self.centralWidget)
-        self.tableView.setObjectName("tableView")
-        self.gridLayout.addWidget(self.tableView, 2, 0, 1, 3)
-
-
-        #self.openTable = QtWidgets.QPushButton(self.centralWidget)
-        #self.openTable.setObjectName("openTable")
-        #self.gridLayout.addWidget(self.openTable, 1, 0, 1, 1)
-        #self.openTable.clicked.connect(self.CargaTabla)
+        self.tableView_Producto = QtWidgets.QTableView(self.centralWidget)
+        self.tableView_Producto.setObjectName("tableView_Producto")
+        self.tableView_Inventario = QtWidgets.QTableView(self.centralWidget)
+        self.tableView_Inventario.setObjectName("tableView_Inventario")
+        self.tableView_Contribucion = QtWidgets.QTableView(self.centralWidget)
+        self.tableView_Contribucion.setObjectName("tableView_Contribucion")
+        self.tableView_Balance = QtWidgets.QTableView(self.centralWidget)
+        self.tableView_Balance.setObjectName("tableView_Balance")
+        self.tableView_Resultado = QtWidgets.QTableView(self.centralWidget)
+        self.tableView_Resultado.setObjectName("tableView_Resultado")
 
         label1 = QtWidgets.QLabel("Example content contained in a tab.")
         label2 = QtWidgets.QLabel("More example text in the second tab.")
-
         tabwidget = QtWidgets.QTabWidget()
-        tabwidget.addTab(label1, "Tab 1")
-        tabwidget.addTab(label2, "Tab 2")
-        #layout.addWidget(tabwidget, 0, 0)
+        tabwidget.addTab(self.tableView_Producto, "Producto")
+        tabwidget.addTab(self.tableView_Inventario, "Inventario")
+        tabwidget.addTab(self.tableView_Contribucion, "Contribucion")
+        tabwidget.addTab(self.tableView_Balance, "Balance")
+        tabwidget.addTab(self.tableView_Resultado, "Resultado")
+
         self.gridLayout.addWidget(tabwidget, 1, 0, 1, 1)
 
         MainWindow.setCentralWidget(self.centralWidget)
@@ -43,33 +44,31 @@ class Ui_MainWindow(object):
         self.menuFile.setObjectName("menuFile")
         MainWindow.setMenuBar(self.menuBar)
 
+        ######################################## Inicio de Acciones de los Iconos
         self.extractAction = QtWidgets.QAction(QtGui.QIcon("./Iconos/open.png"),'Open file',MainWindow)
         self.extractAction.setShortcut("Ctrl+o")
         self.extractAction.triggered.connect(self.CargaTabla)
-
+        #_____________________Icono_________
         self.extractAction2 = QtWidgets.QAction(QtGui.QIcon("./Iconos/save.png"),'Save file',MainWindow)
         self.extractAction2.setShortcut("Ctrl+s")
         self.extractAction2.triggered.connect(self.GuardarTabla)
-
+        #_____________________Icono_________
         self.extractAction3 = QtWidgets.QAction(QtGui.QIcon("./Iconos/work.png"),'Optimization',MainWindow)
         self.extractAction3.setShortcut("Ctrl+w")
         self.extractAction3.triggered.connect(self.OptimizarTabla)
-
+        #_____________________Icono_________
         self.extractAction4 = QtWidgets.QAction(QtGui.QIcon("./Iconos/clean.png"),'Clean all',MainWindow)
         self.extractAction4.setShortcut("Ctrl+c")
         self.extractAction4.triggered.connect(self.LimpiarTabla)
-
-
-
+        #_____________________añadir iconos a toolbar_________
         self.mainToolBar = QtWidgets.QToolBar(MainWindow)
         self.mainToolBar.setObjectName("mainToolBar")
         self.mainToolBar.addAction(self.extractAction)
         self.mainToolBar.addAction(self.extractAction2)
         self.mainToolBar.addAction(self.extractAction3)
         self.mainToolBar.addAction(self.extractAction4)
-
         MainWindow.addToolBar(QtCore.Qt.TopToolBarArea, self.mainToolBar)
-
+        ######################################## Fin de Acciones de los Iconos
 
         self.statusBar = QtWidgets.QStatusBar(MainWindow)
         self.statusBar.setObjectName("statusBar")
@@ -104,14 +103,14 @@ class Ui_MainWindow(object):
         df =Mi_tabla()
         #df = pd.read_excel("./tabla.xlsx",sheetname="hoja1")
         mymodel = PandasModel(df)
-        self.tableView.setModel(mymodel)
+        self.tableView_Producto.setModel(mymodel)
 
     def LimpiarTabla(self):
 
-        self.tableView.setModel(None)
+        self.tableView_Producto.setModel(None)
 
     def GuardarTabla(self):
-        mymodel = self.tableView.model()
+        mymodel = self.tableView_Producto.model()
         print (type(mymodel) )
         print (type(mymodel._data) )
         print (len(mymodel._data.values))
