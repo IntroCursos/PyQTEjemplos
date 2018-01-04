@@ -1,4 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+
+
 from PandasData import Mi_tabla
 import pandas as pd
 
@@ -19,10 +21,19 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.tableView, 2, 0, 1, 3)
 
 
+        #self.openTable = QtWidgets.QPushButton(self.centralWidget)
+        #self.openTable.setObjectName("openTable")
+        #self.gridLayout.addWidget(self.openTable, 1, 0, 1, 1)
+        #self.openTable.clicked.connect(self.CargaTabla)
 
-        
+        label1 = QtWidgets.QLabel("Example content contained in a tab.")
+        label2 = QtWidgets.QLabel("More example text in the second tab.")
 
-
+        tabwidget = QtWidgets.QTabWidget()
+        tabwidget.addTab(label1, "Tab 1")
+        tabwidget.addTab(label2, "Tab 2")
+        #layout.addWidget(tabwidget, 0, 0)
+        self.gridLayout.addWidget(tabwidget, 1, 0, 1, 1)
 
         MainWindow.setCentralWidget(self.centralWidget)
         self.menuBar = QtWidgets.QMenuBar(MainWindow)
@@ -116,6 +127,8 @@ class Ui_MainWindow(object):
         # Save the result
         writer.save()
         print("Segun eso se guardo")
+
+
 
 
 class PandasModel(QtCore.QAbstractTableModel):
