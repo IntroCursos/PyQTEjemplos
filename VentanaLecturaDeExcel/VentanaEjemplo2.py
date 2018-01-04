@@ -1,14 +1,3 @@
-
-#pyuic5 -x mainwindow.ui -o output.py
-
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'mainwindow.ui'
-#
-# Created by: PyQt5 UI code generator 5.9.2
-#
-# WARNING! All changes made in this file will be lost!
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PandasData import Mi_tabla
 import pandas as pd
@@ -28,10 +17,8 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
 
         #Toolbar
-        self.extractAction = QtWidgets.QAction(
-            QtGui.QIcon("open.png"),'Open file',self)
-        self.extractAction.triggered.connect(self.CargaTabla)
-        
+
+
 
         #self.toolBar = MainWindow.addToolBar("Extraction")
         #self.toolBar.addAction(self.extractAction)
@@ -69,9 +56,16 @@ class Ui_MainWindow(object):
         self.menuFile = QtWidgets.QMenu(self.menuBar)
         self.menuFile.setObjectName("menuFile")
         MainWindow.setMenuBar(self.menuBar)
+
+        self.extractAction = QtWidgets.QAction(QtGui.QIcon("./Iconos/open.png"),'Open file',MainWindow)
+        self.extractAction.triggered.connect(self.CargaTabla)
+
         self.mainToolBar = QtWidgets.QToolBar(MainWindow)
         self.mainToolBar.setObjectName("mainToolBar")
+        self.mainToolBar.addAction(self.extractAction)
         MainWindow.addToolBar(QtCore.Qt.TopToolBarArea, self.mainToolBar)
+
+
         self.statusBar = QtWidgets.QStatusBar(MainWindow)
         self.statusBar.setObjectName("statusBar")
         MainWindow.setStatusBar(self.statusBar)
