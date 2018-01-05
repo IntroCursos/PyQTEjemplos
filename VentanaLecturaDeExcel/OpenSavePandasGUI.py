@@ -12,9 +12,13 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PandasData import Mi_tabla
 import pandas as pd
+#from Verde import *
+import Verde
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+        self.verde = Verde.verde()
+
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(534, 379)
         self.centralWidget = QtWidgets.QWidget(MainWindow)
@@ -107,36 +111,54 @@ class Ui_MainWindow(object):
         self.actionClear.setText(_translate("MainWindow", "Clear"))
 
     def OptimizarTabla(self):
-        print("La tabla se optimiza")
+        #print("La tabla se optimiza")
+        self.verde.Optimiza()
+        df = self.verde.DataFrame_Resultado
+        #Verde.Optimiza()
+        mymodel = PandasModel(df)
+        self.tableView_Resultado.setModel(mymodel)
 
     def CargaTabla(self):
-        #table = QtWidgets.QTableView()
-        df =Mi_tabla()
-        #df = pd.read_excel("./tabla.xlsx",sheetname="hoja1")
+        self.verde.CargarDatos()
+
+        df = self.verde.Datos["Varproducto"]
         mymodel = PandasModel(df)
         self.tableView_Producto.setModel(mymodel)
+
+        df = self.verde.Datos["contribucion"]
+        mymodel = PandasModel(df)
+        self.tableView_Inventario.setModel(mymodel)
+
+        df = self.verde.Datos["requeri"]
+        mymodel = PandasModel(df)
+        self.tableView_Contribucion.setModel(mymodel)
+
+        df = self.verde.Datos["Inventario"]
+        mymodel = PandasModel(df)
+        self.tableView_Balance.setModel(mymodel)
+
+
 
     def LimpiarTabla(self):
 
         self.tableView_Producto.setModel(None)
+        self.tableView_Inventario.setModel(None)
+        self.tableView_Contribucion.setModel(None)
+        self.tableView_Balance.setModel(None)
+        self.tableView_Resultado.setModel(None)
 
     def GuardarTabla(self):
-        mymodel = self.tableView_Producto.model()
-        print (type(mymodel) )
-        print (type(mymodel._data) )
-        print (len(mymodel._data.values))
-        print (mymodel._data.values[0][0])
-        df = mymodel._data
+        #mymodel = self.tableView_Producto.model()
+        df = self.verde.DataFrame_Resultado
         #df.to_excel('foo.xlsx', sheet_name='Sheet1')
-        print (df.index)
         # Specify a writer
-        writer = pd.ExcelWriter('example2.xlsx', engine='xlsxwriter')
+        writer = pd.ExcelWriter('resultado.xlsx', engine='xlsxwriter')
         # Write your DataFrame to a file
         #df.to_excel(writer, 'Sheet1')
         df.to_excel(writer, sheet_name='Sheet1')
         # Save the result
         writer.save()
-        print("Segun eso se guardo")
+        #print("Segun eso se guardo")
 
 
 
@@ -181,11 +203,13 @@ class PandasModel(QtCore.QAbstractTableModel):
     """
 
     def setData(self, index, value, role):
-        self._data.iloc[[index.row()],[index.column()] ] = value
+        self._data.iloc[[index.row()],[index.column()] ] = float(value)
         return True
 
     def flags(self, index):
         return QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable
+
+
 
 
 if __name__ == "__main__":
