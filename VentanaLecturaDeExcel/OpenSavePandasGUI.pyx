@@ -10,7 +10,6 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PandasData import Mi_tabla
 import pandas as pd
 #from Verde import *
 import Verde
@@ -212,7 +211,8 @@ class PandasModel(QtCore.QAbstractTableModel):
 
 
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
+def run():
     import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()

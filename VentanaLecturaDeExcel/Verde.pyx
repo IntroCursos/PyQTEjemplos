@@ -5,8 +5,8 @@ from pyomo.environ import *
 
 class verde(object):
 
-    def __init__(self):
-        print("Iniciando la clase verde")
+    #def __init__(self):
+    #    print("Iniciando la clase verde")
 
     def read_excel(self, filename="VerdeReducido2.xlsx"):
         """Read special Excel spreadsheet to input dict.
