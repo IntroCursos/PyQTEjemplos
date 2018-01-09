@@ -91,7 +91,8 @@ if __name__=='__main__':
         _pool = Pool(processes=4)
         try:
                 # insert production server deployment code
-                app.run()
+                #app.run()
+                app.run(host = '0.0.0.0',port=5005)
                 #app.run(debug=True)
         except KeyboardInterrupt:
                 _pool.close()

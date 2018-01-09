@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script> <!-- jQuery source -->
+
   <style>
     /* Remove the navbar's default margin-bottom and rounded borders */
     .navbar {
@@ -38,6 +40,8 @@
         padding: 15px;
       }
       .row.content {height:auto;}
+      /*Yo lo puse jaajaja */
+      .row.content {width: auto;}
     }
   </style>
 </head>
@@ -51,7 +55,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Logo</a>
+
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
@@ -61,33 +65,20 @@
         <li><a href="Inventario">Inventario</a></li>
         <li><a href="Resultado">Resultado</a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
+
     </div>
   </div>
 </nav>
 
 <div class="container-fluid text-center">
   <div class="row content">
-    <div class="col-sm-2 sidenav">
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-    </div>
-    <div class="col-sm-8 text-left">
+
+    <div class="col-sm-8 text-left" style="float: left;padding: 15px;">
       <h1>{{ nombre }} </h1>
       <p>Pagina </p>
       {{ tabla }}
     </div>
-    <div class="col-sm-2 sidenav">
-      <div class="well">
-        <p>ADS</p>
-      </div>
-      <div class="well">
-        <p>ADS</p>
-      </div>
-    </div>
+
   </div>
 </div>
 
@@ -95,5 +86,39 @@
   <p>Footer Text</p>
 </footer>
 
+<script>
+    $(function(){
+            $("td").click(function(event){
+                    if($(this).children("input").length > 0)
+                            return false;
+                    var tdObj = $(this);
+                    var preText = tdObj.html();
+                    var inputObj = $("<input type='text' />");
+                    tdObj.html("");
+                    inputObj.width(tdObj.width())
+                            .height(tdObj.height())
+                            .css({border:"0px",fontSize:"17px"})
+                            .val(preText)
+                            .appendTo(tdObj)
+                            .trigger("focus")
+                            .trigger("select");
+                    inputObj.keyup(function(event){
+                            if(13 == event.which) { // press ENTER-key
+                                    var text = $(this).val();
+                                    tdObj.html(text);
+                            }
+                            else if(27 == event.which) {  // press ESC-key
+                                    tdObj.html(preText);
+                            }
+                  });
+                    inputObj.click(function(){
+                            return false;
+                    });
+            });
+    });
+                    </script>
+
 </body>
 </html>
+<!-- <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/estilo.css') }}">
+-->
