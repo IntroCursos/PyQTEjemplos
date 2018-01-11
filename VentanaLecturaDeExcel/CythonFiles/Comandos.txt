@@ -1,0 +1,8 @@
+instalar anaconda
+
+instalar pyqt5 le mando el .exe
+
+
+pip install PyQt5
+pip install pyomo
+conda install -q -y --channel cachemeorg ipopt_bin
