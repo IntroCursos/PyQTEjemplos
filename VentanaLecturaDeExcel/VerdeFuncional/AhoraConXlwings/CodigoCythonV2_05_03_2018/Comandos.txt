@@ -1,0 +1,14 @@
+
+
+python setup.py build_ext --inplace
+
+pero tener el archivo setup.py como 
+
+from distutils.core import setup
+from Cython.Build import cythonize
+
+setup(
+    ext_modules = cythonize("helloworld.pyx")
+)
+
+y cambiar de nombre de .py a .pyx
